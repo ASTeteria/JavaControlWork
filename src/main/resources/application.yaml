@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: UserPost
+  profiles:
+    active: dev
+  datasource:
+    url: "jdbc:mysql://localhost:3306/UserPost"
+    username: "ASTeteria"
+    password: "19823366"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+jwt:
+  secret: superSecretJwtKeyForAppDFJFURUIYLHjhfahsgjhliayJHFJFHGKJYTeUTXYiLHZLKXhY
+  access-token:
+    ttl-millis: 40000000
+  refresh-token:
+    ttl-millis: 6048000000000
