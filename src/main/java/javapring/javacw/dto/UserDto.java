@@ -15,5 +15,5 @@ public record UserDto(
         @Size(min = 6, message = "Password must be at least 6 characters long")
         String password,
 
-        Set<String> roles // Додаємо ролі
+        Set<String> roles // ролі
 ) {}

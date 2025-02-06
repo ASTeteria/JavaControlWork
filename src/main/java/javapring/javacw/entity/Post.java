@@ -41,8 +41,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "posts")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

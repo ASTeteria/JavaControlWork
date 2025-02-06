@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    @Mapping(target = "password", ignore = true) // Пароль не передається у DTO
+    @Mapping(target = "password", ignore = true)
     UserDto toUserDto(User user);
 
     User toUser(UserDto userDto);

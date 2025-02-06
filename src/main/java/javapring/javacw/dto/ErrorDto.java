@@ -1,6 +1,5 @@
 package javapring.javacw.dto;
 
-
 import lombok.Builder;
 
 import java.time.LocalDateTime;

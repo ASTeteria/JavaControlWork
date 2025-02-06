@@ -9,9 +9,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface PostMapper {
 
-    @Mapping(source = "user.id", target = "userId") // Конвертація user.id → userId
+    @Mapping(source = "user.id", target = "userId")
     PostDto toPostDto(Post post);
 
-    @Mapping(source = "userId", target = "user.id") // Конвертація userId → user.id
+    @Mapping(source = "userId", target = "user.id")
     Post toPost(PostDto postDto);
 }
