@@ -24,6 +24,9 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
+              - column:
+                  name: refresh_token
+                  type: VARCHAR(500)
 
   - changeSet:
       id: 2-create-user-roles-table

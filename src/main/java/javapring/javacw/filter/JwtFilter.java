@@ -13,7 +13,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -53,20 +52,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 return;
             }
 
-            UserDetails userDetails;
-            try {
-                userDetails = customUserDetailsService.loadUserByUsername(username);
-            } catch (UsernameNotFoundException e) {
-                log.warn("User not found for token: {}", username);
-                filterChain.doFilter(request, response);
-                return;
-            }
-
-            if (userDetails.getAuthorities() == null || userDetails.getAuthorities().isEmpty()) {
-                log.warn("Access Denied: No roles assigned to user {}", username);
-                filterChain.doFilter(request, response);
-                return;
-            }
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
