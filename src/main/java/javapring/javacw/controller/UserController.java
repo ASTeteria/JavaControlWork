@@ -2,6 +2,9 @@ package javapring.javacw.controller;
 
 import jakarta.validation.Valid;
 import javapring.javacw.dto.UserDto;
+import javapring.javacw.entity.User;
+import javapring.javacw.mapper.UserMapper;
+import javapring.javacw.repository.UserRepository;
 import javapring.javacw.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +20,32 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @GetMapping
     @Secured("ROLE_ADMIN") // лише для адмін
     public ResponseEntity<List<UserDto>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @GetMapping("/filter")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<List<UserDto>> filterUsers(
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String role) {
+
+        List<User> users;
+
+        if (email != null) {
+            users = userRepository.findByEmailContainingIgnoreCase(email);
+        } else if (role != null) {
+            users = userRepository.findByRole(role);
+        } else {
+            users = userRepository.findAll();
+        }
+
+        return ResponseEntity.ok(users.stream().map(userMapper::toUserDto).toList());
     }
 
     @GetMapping("/{id}")
